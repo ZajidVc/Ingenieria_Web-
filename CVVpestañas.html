@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Talento - Currículums</title>
+    <!-- Fuente Inter recomendada por tus estilos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylespes.css">
+</head>
+<body>
+    <div class="contenedor-grial-sagrado">
+        <!-- Controles de radio invisibles (hermanos directos de los bloques) -->
+        <input type="radio" name="pestañas" id="pestaña-opcion-1" class="control-pestaña" checked>
+        <input type="radio" name="pestañas" id="pestaña-opcion-2" class="control-pestaña">
+        <input type="radio" name="pestañas" id="pestaña-opcion-3" class="control-pestaña">
+
+        <!-- Cabecera -->
+        <header class="cabecera-principal">
+            <nav class="menu-navegacion">
+                <label for="pestaña-opcion-1" class="enlace-opcion">Juan Pérez (Principal)</label>
+                <label for="pestaña-opcion-2" class="enlace-opcion">Ana Gómez (UX Design)</label>
+                <label for="pestaña-opcion-3" class="enlace-opcion">Luis Torres (Data Science)</label>
+            </nav>
+        </header>
+
+        <!-- Barra lateral izquierda -->
+        <aside class="lateral-izquierdo">
+            <h2 style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--color-texto-principal);">Candidatos</h2>
+            <div class="menu-lateral">
+                <label for="pestaña-opcion-1" class="enlace-opcion">Perfil 1: Juan</label>
+                <label for="pestaña-opcion-2" class="enlace-opcion">Perfil 2: Ana</label>
+                <label for="pestaña-opcion-3" class="enlace-opcion">Perfil 3: Luis</label>
+            </div>
+        </aside>
+
+        <!-- Contenedor principal con las vistas -->
+        <main class="contenido-principal">
+            <!-- Pestaña 1 -->
+            <section id="contenido-opc1" class="contenedor-opc">
+                <div class="perfil-header">
+                    <img class="imagen-circular" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=300&q=80" alt="Foto de Juan Pérez">
+                    <div>
+                        <h2>Juan Pérez</h2>
+                        <h3>Desarrollador Web Full Stack</h3>
+                    </div>
+                </div>
+                <div class="cv-data">
+                    <p><strong>Experiencia:</strong> 5 años creando aplicaciones web escalables utilizando React, Node.js y bases de datos relacionales y NoSQL.</p>
+                    <p><strong>Educación:</strong> Ingeniería en Sistemas Computacionales - Universidad Tecnológica.</p>
+                    <p><strong>Habilidades:</strong> JavaScript, Python, CSS Grid/Flexbox, Arquitectura Cloud (AWS).</p>
+                    <p><strong>Idiomas:</strong> Español (Nativo), Inglés (C1).</p>
+                </div>
+            </section>
+
+            <!-- Pestaña 2 -->
+            <section id="contenido-opc2" class="contenedor-opc">
+                <div class="perfil-header">
+                    <img class="imagen-circular" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?fit=crop&w=300&q=80" alt="Foto de Ana Gómez">
+                    <div>
+                        <h2>Ana Gómez</h2>
+                        <h3>Diseñadora UI/UX & Producto Digital</h3>
+                    </div>
+                </div>
+                <div class="cv-data">
+                    <p><strong>Experiencia:</strong> 4 años liderando diseño de interfaces centradas en conversión, accesibilidad web y Design Systems.</p>
+                    <p><strong>Educación:</strong> Licenciatura en Diseño y Comunicación Visual.</p>
+                    <p><strong>Habilidades:</strong> Figma, Prototipado interactivo, User Research, HTML/CSS semántico.</p>
+                    <p><strong>Idiomas:</strong> Español (Nativo), Inglés (B2).</p>
+                </div>
+            </section>
+
+            <!-- Pestaña 3 -->
+            <section id="contenido-opc3" class="contenedor-opc">
+                <div class="perfil-header">
+                    <img class="imagen-circular" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=300&q=80" alt="Foto de Luis Torres">
+                    <div>
+                        <h2>Luis Torres</h2>
+                        <h3>Científico de Datos & ML Engineer</h3>
+                    </div>
+                </div>
+                <div class="cv-data">
+                    <p><strong>Experiencia:</strong> 3 años desarrollando canalizaciones ETL, modelos de predicción y visualización analítica en fintech.</p>
+                    <p><strong>Educación:</strong> Maestría en Estadística Aplicada y Ciencia de Datos.</p>
+                    <p><strong>Habilidades:</strong> Python (Pandas, Scikit-Learn), SQL Avanzado, Tableau, Git.</p>
+                    <p><strong>Idiomas:</strong> Español (Nativo), Inglés (C2).</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Pie de página -->
+        <footer class="pie-pagina-principal">
+            <span>&copy; 2026 Portal de Talento</span>
+            <span>Directorio de Profesionales</span>
+        </footer>
+    </div>
+</body>
+</html>

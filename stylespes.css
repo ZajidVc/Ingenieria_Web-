@@ -1,0 +1,211 @@
+/* Variables CSS */
+:root {
+    --color-principal-oscuro: #0f172a;
+    --color-acento-azul: #2563eb;
+    --color-azul-hover: #1d4ed8;
+    --color-fondo-claro: #f8fafc;
+    --color-tarjeta-blanco: #ffffff;
+    --color-texto-principal: #1e293b;
+    --color-texto-secundario: #64748b;
+    --color-texto-titulo-contenido: rgb(86, 3, 3);
+    --color-borde-gris: #e2e8f0;
+    --sombra-elegante: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    --transicion-suave: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset y estilos base (se corrigió el caracter '-' por '*') */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-principal);
+}
+
+/* Permite ocultar los radios funcionales */
+.control-pestaña {
+    display: none;
+}
+
+/* Layout de la página */
+.contenedor-grial-sagrado {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 230px 1fr;
+    grid-template-areas:
+        "cabecera cabecera"
+        "lateral-izq principal"
+        "pie pie";
+    min-height: 100vh;
+}
+
+.cabecera-principal {
+    grid-area: cabecera;
+    background-color: var(--color-principal-oscuro);
+    color: var(--color-tarjeta-blanco);
+    padding: 1.25rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #1e293b;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+/* Menú de Navegación moderno y horizontal */
+.menu-navegacion {
+    display: flex;
+    gap: 0.75rem;
+    background-color: rgba(30, 41, 59, 0.7);
+    padding: 0.35rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.enlace-opcion {
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-acento-azul);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+    transition: var(--transicion-suave);
+}
+
+.enlace-opcion:hover {
+    color: var(--color-tarjeta-blanco);
+    background-color: rgba(100, 32, 32, 0.678);
+}
+
+/* Barra Lateral Izquierda (Sidebar) */
+.lateral-izquierdo {
+    grid-area: lateral-izq;
+    background-color: var(--color-tarjeta-blanco);
+    border-right: 1px solid var(--color-borde-gris);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Contenido Principal (Main) */
+.contenido-principal {
+    grid-area: principal;
+    padding: 2.5rem;
+    background-color: #f1f5f9;
+    display: flex;
+    justify-content: center;        
+    overflow-y: auto;
+}
+
+/* Tarjeta del contenido de las opciones - efecto pestaña */
+.contenedor-opc {
+    display: none;
+    width: 100%;
+    max-width: 850px;
+    padding: 2.5rem;
+    background-color: var(--color-tarjeta-blanco);
+    border-radius: 20px;
+    box-shadow: var(--sombra-elegante);
+    border: 1px solid var(--color-borde-gris);
+    overflow: hidden;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.perfil-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contenedor-opc h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.25rem;
+}
+
+.contenedor-opc h3 {
+    padding-bottom: 10px; 
+    color: var(--color-texto-titulo-contenido);
+    font-size: 1.1rem;
+}
+
+.cv-data p {
+    color: var(--color-texto-secundario);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.cv-data p strong {
+    color: var(--color-texto-principal);
+}
+
+.imagen-circular {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-borde-gris);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pie de Página (Footer) */
+.pie-pagina-principal {
+    grid-area: pie;
+    background-color: var(--color-principal-oscuro);
+    color: #94a3b8;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1e293b;
+    font-size: 0.85rem;
+    z-index: 10;
+}
+
+/* LÓGICA CSS PURA: Visibilidad del contenedor correspondiente */
+#pestaña-opcion-1:checked ~ .contenido-principal #contenido-opc1,
+#pestaña-opcion-2:checked ~ .contenido-principal #contenido-opc2,
+#pestaña-opcion-3:checked ~ .contenido-principal #contenido-opc3 {
+    display: block;
+}
+
+/* Resaltado del botón/pestaña activo tanto en cabecera como en lateral */
+#pestaña-opcion-1:checked ~ .cabecera-principal label[for="pestaña-opcion-1"],
+#pestaña-opcion-2:checked ~ .cabecera-principal label[for="pestaña-opcion-2"],
+#pestaña-opcion-3:checked ~ .cabecera-principal label[for="pestaña-opcion-3"],
+#pestaña-opcion-1:checked ~ .lateral-izquierdo label[for="pestaña-opcion-1"],
+#pestaña-opcion-2:checked ~ .lateral-izquierdo label[for="pestaña-opcion-2"],
+#pestaña-opcion-3:checked ~ .lateral-izquierdo label[for="pestaña-opcion-3"] {
+    background-color: var(--color-acento-azul);
+    color: var(--color-tarjeta-blanco);
+}
