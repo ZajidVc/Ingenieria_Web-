@@ -1,0 +1,188 @@
+
+:root {
+   
+    --color-fondo: #ffffff;
+    --color-tarjeta-fondo: #f6ecdc;
+    --color-sombra-verde: #9fc19e;
+    --color-borde-inicial: transparent;
+    --color-borde-seleccion: #16a34a;       /* Borde verde  */
+    --color-texto: #1c1917;
+    --color-placeholder-fondo: #c7cbd1;
+    --color-placeholder-lineas: #79818d;
+    --fuente-texto: "Times New Roman", Times, Georgia, serif;
+    --transicion-suave: all 0.3s ease;
+}
+
+
+body:has(#selector-modo:checked) {
+    --color-fondo: #0f172a;
+    --color-tarjeta-fondo: #1e293b;
+    --color-sombra-verde: #065f46;
+    --color-borde-inicial: transparent;
+    --color-borde-seleccion: #38bdf8;       /* Borde celeste  */
+    --color-texto: #f8fafc;
+    --color-placeholder-fondo: #334155;
+    --color-placeholder-lineas: #94a3b8;
+}
+
+/* Reset y estructura base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-texto);
+    min-height: 100vh;
+    padding: 2rem;
+    transition: var(--transicion-suave);
+}
+
+/* Barra superior y Switch de modo claro/oscuro */
+.barra-superior {
+    max-width: 1100px;
+    margin: 0 auto 2.5rem auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.switch-modo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-family: sans-serif;
+    user-select: none;
+}
+
+.switch-modo input {
+    display: none;
+}
+
+.deslizador {
+    position: relative;
+    width: 44px;
+    height: 22px;
+    background-color: #cbd5e1;
+    border-radius: 20px;
+    transition: var(--transicion-suave);
+}
+
+.deslizador::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: var(--transicion-suave);
+}
+
+.switch-modo input:checked + .deslizador {
+    background-color: #2563eb;
+}
+
+.switch-modo input:checked + .deslizador::before {
+    transform: translateX(22px);
+}
+
+
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  
+    gap: 2.2rem 1.8rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-tarjeta-fondo);
+    border-radius: 18px;
+    padding: 1.25rem 1rem 1rem 1rem;
+    
+
+    box-shadow: 4px 4px 0px 1px var(--color-sombra-verde);
+    
+    /* Borde base */
+    border: 2px solid var(--color-borde-inicial);
+    outline: none;
+    cursor: pointer;
+
+  
+    transition: var(--transicion-suave);
+
+     
+}
+
+.tarjeta:hover,
+.tarjeta:focus {
+    border-color: var(--color-borde-seleccion);
+    transform: translateY(-5px);
+    box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Elementos internos de la tarjeta */
+.contenedor-img {
+    width: 140px;
+    height: 140px;
+    background-color: #ffffff; /* Fondo blanco para que combine limpio con fotos de productos */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    padding: 8px; /* Espacio interno para que la imagen no toque los bordes */
+}
+
+.imagen-producto {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ajusta toda la imagen visiblemente dentro del cuadro sin cortar nada */
+    display: block;
+}
+
+.icono-placeholder {
+    width: 110px;
+    height: 110px;
+    color: var(--color-placeholder-lineas);
+}
+
+.info-producto {
+    text-align: center;
+    line-height: 1.35;
+}
+
+.info-producto .nombre {
+    font-size: 1.05rem;
+}
+
+.info-producto .precio {
+    font-size: 1.05rem;
+    margin-top: 0.15rem;
+}
+
+/* Adaptación responsive */
+@media (max-width: 900px) {
+    .catalogo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .catalogo-grid {
+        grid-template-columns: 1fr;
+    }
+}
