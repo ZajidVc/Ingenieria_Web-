@@ -1,0 +1,144 @@
+/* Variables globales personalizadas */
+:root {
+    font-family: system-ui, sans-serif;
+    color: #1e293b;
+    background: #e2e8f0;
+
+    --color-primary: #0f766e;
+    --color-secondary: #0369a1;
+    --color-surface: #ffffff;
+    --color-border: #cbd5e1;
+    --color-data: #334155;
+    --radius: 0.75rem;
+    --gap: 1rem;
+    --page-padding: clamp(1rem, 3vw, 2rem);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+/* Holy Grail Layout */
+.layout {
+    display: grid;
+    grid-template-columns: minmax(180px, 220px) minmax(0, 1fr) minmax(180px, 240px);
+    grid-template-rows: auto auto minmax(60vh, 1fr) auto;
+    grid-template-areas:
+        "header  header  header"
+        "nav     nav     nav"
+        "left    main    right"
+        "footer  footer  footer";
+    gap: var(--gap);
+    min-height: 100vh;
+    padding: var(--page-padding);
+    max-width: 1600px;
+    margin-inline: auto;
+}
+
+/* Regiones */
+.header {
+    grid-area: header;
+    background: var(--color-primary);
+    color: white;
+}
+
+.nav {
+    grid-area: nav;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background: var(--color-surface);
+    align-items: center;
+}
+
+.sidebar-left { grid-area: left; }
+.main { grid-area: main; min-width: 0; }
+.sidebar-right { grid-area: right; }
+
+.footer {
+    grid-area: footer;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
+
+/* Estilos compartidos */
+.header, .nav, .sidebar, .main, .footer {
+    padding: 1.5rem;
+    border-radius: var(--radius);
+}
+
+.nav, .sidebar, .main {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.sidebar ul {
+    padding-left: 1.25rem;
+    list-style-type: square;
+}
+
+.sidebar li + li { margin-top: 0.75rem; }
+h1, h2, h3, p { margin-top: 0; }
+.footer p { margin-bottom: 0; }
+
+/* Estilo para los datos del currículum */
+.cv-data {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--color-primary);
+    color: var(--color-data);
+}
+
+.cv-data h3 { color: var(--color-primary); }
+.cv-data strong { color: #000; }
+
+@media (max-width: 800px) {
+    .layout {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas:
+            "header header"
+            "nav    nav"
+            "main   main"
+            "left   right"
+            "footer footer";
+    }
+}
+
+@media (max-width: 520px) {
+    .layout {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas: "header" "nav" "main" "left" "right" "footer";
+    }
+    .header, .nav, .sidebar, .main, .footer { padding: 1rem; }
+    .nav { gap: 1rem; flex-direction: column; align-items: flex-start; }
+}
