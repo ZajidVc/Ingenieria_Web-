@@ -256,15 +256,6 @@
       loginStatus.className = 'status';
 
       try {
-        /* Conectar aquí tu API real:
-        const res = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        if (!res.ok) throw new Error('Credenciales inválidas');
-        */
-
         await new Promise(resolve => setTimeout(resolve, 500));
         const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         const user = users.find(u => u.email === email && u.password === password);
@@ -297,15 +288,6 @@
       registerStatus.className = 'status';
 
       try {
-        /* Conectar aquí tu API real:
-        const res = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, email, password })
-        });
-        if (!res.ok) throw new Error('No se pudo crear la cuenta');
-        */
-
         await new Promise(resolve => setTimeout(resolve, 500));
         const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 
