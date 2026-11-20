@@ -1,0 +1,340 @@
+<!--Diseño SPA
+    evita recargar la pagina 
+    peticiones asincronas
+    asyn/awit 
+    fetch - peticiones asincronas HTTP: Get, Post, Put, DELETE
+    JSON- estandar para intercambiar datos en las aplicaciones o entre aplicaciones
+
+    -->
+
+    <!--Api de navegacio  de html5 
+          required
+          pattern-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autenticación</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f3f4f6;
+      padding: 1rem;
+    }
+    .auth-card {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 380px;
+    }
+    .auth-card h2 {
+      margin: 0 0 1.5rem;
+      text-align: center;
+      color: #111827;
+    }
+    .hidden {
+      display: none;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #374151;
+    }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus {
+      border-color: #2563eb;
+    }
+    .toggle-btn {
+      position: absolute;
+      right: 0.75rem;
+      background: none;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .btn-submit:hover {
+      background-color: #1d4ed8;
+    }
+    .status {
+      margin: 0.85rem 0 0;
+      font-size: 0.9rem;
+      text-align: center;
+      min-height: 1.2em;
+    }
+    .status.error { color: #dc2626; }
+    .status.success { color: #16a34a; }
+    .switch-view {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+    .link-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #2563eb;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .link-btn:hover {
+      color: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <!-- VISTA 1: INICIAR SESIÓN (Visible por defecto) -->
+    <div id="loginView">
+      <h2>Iniciar Sesión</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Correo electrónico</label>
+          <input type="email" id="loginEmail" placeholder="usuario@ejemplo.com" autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <div class="input-wrapper">
+            <input type="password" id="loginPassword" placeholder="••••••••" minlength="6" autocomplete="current-password" required>
+            <button type="button" class="toggle-btn" data-target="loginPassword">Mostrar</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Entrar</button>
+        <p id="loginStatus" class="status" aria-live="polite"></p>
+      </form>
+
+      <div class="switch-view">
+        ¿No tienes cuenta? <button type="button" id="goToRegister" class="link-btn">Crear cuenta</button>
+      </div>
+    </div>
+
+    <!-- VISTA 2: CREAR CUENTA (Oculta inicialmente) -->
+    <div id="registerView" class="hidden">
+      <h2>Crear Cuenta</h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="regUsername">Usuario</label>
+          <input type="text" id="regUsername" placeholder="ej. usuario_01" minlength="3" autocomplete="username" required>
+        </div>
+
+        <div class="form-group">
+          <label for="regEmail">Correo electrónico</label>
+          <input type="email" id="regEmail" placeholder="usuario@ejemplo.com" autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="regPassword">Contraseña</label>
+          <div class="input-wrapper">
+            <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres" minlength="6" autocomplete="new-password" required>
+            <button type="button" class="toggle-btn" data-target="regPassword">Mostrar</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar contraseña</label>
+          <div class="input-wrapper">
+            <input type="password" id="confirmPassword" placeholder="Repite tu contraseña" minlength="6" autocomplete="new-password" required>
+            <button type="button" class="toggle-btn" data-target="confirmPassword">Mostrar</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Registrarse</button>
+        <p id="registerStatus" class="status" aria-live="polite"></p>
+      </form>
+
+      <div class="switch-view">
+        ¿Ya tienes cuenta? <button type="button" id="goToLogin" class="link-btn">Iniciar sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Elementos de navegación entre vistas
+    const loginView = document.getElementById('loginView');
+    const registerView = document.getElementById('registerView');
+    const goToRegisterBtn = document.getElementById('goToRegister');
+    const goToLoginBtn = document.getElementById('goToLogin');
+
+    // Formularios y mensajes de estado
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const loginStatus = document.getElementById('loginStatus');
+    const registerStatus = document.getElementById('registerStatus');
+
+    // Base de datos simulada en localStorage con un usuario inicial
+    const STORAGE_KEY = 'app_users_demo';
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([
+        { username: 'admin', email: 'admin@ejemplo.com', password: '123456' }
+      ]));
+    }
+
+    // Cambiar entre vista de Login y Registro
+    function switchView(target) {
+      loginStatus.textContent = '';
+      registerStatus.textContent = '';
+      if (target === 'register') {
+        loginView.classList.add('hidden');
+        registerView.classList.remove('hidden');
+      } else {
+        registerView.classList.add('hidden');
+        loginView.classList.remove('hidden');
+      }
+    }
+
+    goToRegisterBtn.addEventListener('click', () => switchView('register'));
+    goToLoginBtn.addEventListener('click', () => switchView('login'));
+
+    // Alternar visibilidad en todos los campos de contraseña
+    document.querySelectorAll('.toggle-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(btn.dataset.target);
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        btn.textContent = isHidden ? 'Ocultar' : 'Mostrar';
+      });
+    });
+
+    // --- LÓGICA DE INICIO DE SESIÓN ---
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const password = document.getElementById('loginPassword').value;
+
+      loginStatus.textContent = 'Verificando...';
+      loginStatus.className = 'status';
+
+      try {
+        /* Conectar aquí tu API real:
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        if (!res.ok) throw new Error('Credenciales inválidas');
+        */
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (!user) throw new Error('Correo o contraseña incorrectos.');
+
+        loginStatus.textContent = `¡Bienvenido, ${user.username}!`;
+        loginStatus.className = 'status success';
+      } catch (err) {
+        loginStatus.textContent = err.message;
+        loginStatus.className = 'status error';
+      }
+    });
+
+    // --- LÓGICA DE CREAR CUENTA ---
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        registerStatus.textContent = 'Las contraseñas no coinciden.';
+        registerStatus.className = 'status error';
+        return;
+      }
+
+      registerStatus.textContent = 'Creando cuenta...';
+      registerStatus.className = 'status';
+
+      try {
+        /* Conectar aquí tu API real:
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+        if (!res.ok) throw new Error('No se pudo crear la cuenta');
+        */
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+        if (users.some(u => u.email === email)) {
+          throw new Error('Este correo ya está registrado.');
+        }
+        if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+          throw new Error('Ese nombre de usuario ya está en uso.');
+        }
+
+        users.push({ username, email, password });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+
+        registerStatus.textContent = '¡Cuenta creada! Redirigiendo al login...';
+        registerStatus.className = 'status success';
+        registerForm.reset();
+
+        // Regresa automáticamente al login y autocompleta el correo recién registrado
+        setTimeout(() => {
+          switchView('login');
+          document.getElementById('loginEmail').value = email;
+          document.getElementById('loginPassword').focus();
+        }, 1200);
+      } catch (err) {
+        registerStatus.textContent = err.message;
+        registerStatus.className = 'status error';
+      }
+    });
+  </script>
+
+</body>
+</html>
