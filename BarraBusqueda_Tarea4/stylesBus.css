@@ -200,7 +200,7 @@ body:has(#selector-modo:checked) .switch-modo {
     align-items: center;
     margin-bottom: 0.8rem;
     overflow: hidden;
-    padding: 8px; /* Espacio interno para que la imagen no toque los bordes */
+    padding: 8px;
 }
 
 .imagen-producto {
@@ -208,7 +208,7 @@ body:has(#selector-modo:checked) .switch-modo {
     height: 100%;
     object-fit: contain;
     display: block;
-    transition: transform 0.3s ease; /* Agrega esta línea a tu clase actual */
+    transition: transform 0.3s ease; 
 }
 
 /* Zoom suave en la foto al seleccionar la tarjeta */
